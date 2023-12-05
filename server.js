@@ -4,6 +4,8 @@ const cookieSession = require("cookie-session");
 const models = require('./app/models');
 const dbConfig = require("./app/config/db.config");
 var passport = require('passport')
+let authRouts = require("./app/routes/auth.routes")
+let userRouts = require("./app/routes/user.routes")
 
 const app = express();
 
@@ -15,7 +17,8 @@ models.sequelize.sync({}).then(() => {
 /* for Angular Client (withCredentials) */
 app.use(
   cors({
-    origin: "http://localhost:4200",
+    origin: "https://expense-app-99c18.web.app",
+    //  origin: "http://localhost:4200",
     credentials: true,
   })
 );
@@ -57,11 +60,19 @@ const Role = db.role;
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
+app.use(function(req, res, next) {
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, Content-Type, Accept"
+  );
+  next();
 
-// routes
-require("./app/routes/auth.routes")(app);
-require("./app/routes/user.routes")(app);
+})
 
+// require("./app/routes/auth.routes")(app);
+// require("./app/routes/user.routes")(app);
+app.use('/api/auth', authRouts);
+app.use('/api/test', userRouts);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

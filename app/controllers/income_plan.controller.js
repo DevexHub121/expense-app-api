@@ -3,10 +3,6 @@ exports.create = (req, res) => {
   Incomeplan.findOne({where: {
     userId:req.user.id,
   }}).then((data) => {
-    console.log("data---")
-    console.log("data---")
-    console.log("data---")
-    console.log(data)
     if(data){
       Incomeplan.update(req.body, {
         where: {

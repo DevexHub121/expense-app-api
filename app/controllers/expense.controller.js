@@ -8,10 +8,6 @@ exports.create = (req, res) => {
     .catch((err) => res.json({ success: false, error: err }));
   };
 exports.findAll = (req, res) => {
-  console.log('req-----------')
-  console.log('req-----------')
-  console.log('req-----------')
-  console.log(req.user)
     Expense.findAll( {where: { userId: req.user.id },
     })
     .then((data) => {

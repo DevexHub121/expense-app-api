@@ -5,10 +5,6 @@ const User = db.User;
 const Role = db.role;
 
 verifyToken = (req, res, next) => {
-  console.log('req.session----------------')
-  console.log('req.session----------------')
-  console.log('req.session----------------')
-  console.log(req.session)
   let token = req.session.token;
 
   if (!token) {

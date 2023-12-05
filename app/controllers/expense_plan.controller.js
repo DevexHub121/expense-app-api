@@ -3,14 +3,6 @@ exports.create = (req, res) => {
     Expenseplan.findOne({where: {
       userId:req.user.id,
     }}).then((data) => {
-        console.log("dataExpenseplan---")
-        console.log("dataExpenseplan---")
-        console.log("dataExpenseplan---")
-        console.log(data)
-        console.log("req.bodyExpenseplan---")
-        console.log("req.bodyExpenseplan---")
-        console.log("req.bodyExpenseplan---")
-        console.log(req.body)
         if(data){
           Expenseplan.update(req.body, {
             where: {
@@ -25,10 +17,6 @@ exports.create = (req, res) => {
           req.body.userId = req.user.id
           Expenseplan.create(req.body)
         .then((data) => {
-            console.log("data1Expenseplan---")
-        console.log("data1Expenseplan---")
-        console.log("data1Expenseplan---")
-        console.log(data)
           res.json({ success: true, data: data });
         })
         .catch((err) => 

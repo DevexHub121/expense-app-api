@@ -13,11 +13,6 @@ exports.signup = (req, res) => {
   //   email: req.body.email,
   //   password: bcrypt.hashSync(req.body.password, 8),
   // });
-  console.log('user-----------')
-  console.log('user-----------')
-  console.log('user-----------')
-  console.log(User)
-
   User.create({
     userName: req.body.username,
     email: req.body.email,
@@ -114,17 +109,11 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-  console.log('req.body-----------------')
-  console.log('req.body-----------------')
-  console.log(req.body)
   User.findOne({
     where: { email: req.body.username },
     include: [{ model: Role }]
   })
     .then((user) => {
-      console.log('user-----------------')
-      console.log('user-----------------')
-      console.log(user)
       if (!user) {
         return res.status(404).send({ message: "User Not found." });
       }
