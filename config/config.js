@@ -6,6 +6,10 @@ console.log('env-----------------')
 console.log('env-----------------')
 console.log('env-----------------')
 console.log(env)
+console.log('process.env-----------------')
+console.log('process.env-----------------')
+console.log('process.env-----------------')
+console.log(process.env)
 let config = {};
 
 config.production = {
