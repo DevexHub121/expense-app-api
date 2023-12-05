@@ -15,13 +15,22 @@ models.sequelize.sync({}).then(() => {
 
 // app.use(cors());
 /* for Angular Client (withCredentials) */
+const allowedOrigins = [
+  // 'https://expense-app-99c18.web.app',
+  "http://localhost:4200"
+];
 app.use(
   cors({
     origin: "https://expense-app-99c18.web.app",
     //  origin: "http://localhost:4200",
     credentials: true,
+    optionsSuccessStatus: 200,
   })
 );
+// app.use(cors({
+//     origin: allowedOrigins,
+//     optionsSuccessStatus: 200,
+//   })); 
 app.use(passport.initialize());
 require('./config/passport')(passport);
 // parse requests of content-type - application/json
