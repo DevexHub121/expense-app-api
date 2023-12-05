@@ -1,17 +1,27 @@
 {
+  "version": 2,
   "builds": [
     {
-      "src": "api/**/*.js",
-      "use": "@now/node-server",
-      "config": {
-        "maxLambdaSize": "50mb" 
-      }
+      "src": "./server.js",
+      "use": "@vercel/node"
     }
   ],
-  "env": {
-    "MYSQL_HOST": "sql12.freesqldatabase.com",
-    "MYSQL_USER": "sql12666687",
-    "MYSQL_PASSWORD": "d3CEvd3Z3a",
-    "MYSQL_DATABASE": "sql12666687"
-  }
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/api/auth",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/api/test",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/server.js"
+    }
+  ]
 }
