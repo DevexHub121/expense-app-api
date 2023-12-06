@@ -1,85 +1,54 @@
-const Incomeplan = require('../models').Incomeplan
-exports.create = (req, res) => {
-  Incomeplan.findOne({where: {
-    userId:req.user.id,
-  }}).then((data) => {
-    if(data){
-      Incomeplan.update(req.body, {
-        where: {
-          id:data.id,
-        },
-      }
-      )
-        .then((data) => {
-          res.json({ success: true, data: data });
-        })
-    .catch((err) => res.json({ success: false, error: err }));
-    }else{
-      req.body.userId = req.user.id
-      Incomeplan.create(req.body)
-    .then((data) => {
-      res.json({ success: true, data: data });
-    })
-    .catch((err) => res.json({ success: false, error: err }));
+const Incomeplan = require('../models').Incomeplan;
+
+exports.create = async (req, res) => {
+  try {
+    const data = await Incomeplan.findOne({ userId: req.user.id });
+    if (data) {
+      const updatedData = await Incomeplan.updateOne(
+        { _id: data._id },
+        req.body,
+      );
+      res.json({ success: true, data: updatedData });
+    } else {
+      req.body.userId = req.user.id;
+      const newData = await Incomeplan.create(req.body);
+      res.json({ success: true, data: newData });
     }
-    
-  })
-  .catch((err) => 
-  { console.log("err---")
-  console.log("err---")
-  console.log("err---")
-  console.log(err)
-  res.json({ success: false, error: err })
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, error: err });
   }
-  );
-    
-  };
-exports.findAll = (req, res) => {
-    Incomeplan.findAll({
-      attributes: ['bonus','custom_category','interest','other','paycheck','savings'],where: {
-        userId:req.user.id,
-      }})
-    .then((data) => {
-      res.json({ success: true, data: data });
-    })
-    .catch((err) => res.json({ success: false, error: err }));
-  };
-exports.update = (req, res) => {
-    Incomeplan.update(req.body, {
-        where: {
-          id:req.params.id,
-        },
-      })
-        .then((data) => {
-          res.json({ success: true, data: data });
-        })
-    .catch((err) => res.json({ success: false, error: err }));
-  };
-exports.delete = (req, res) => {
-    Incomeplan.destroy({
-        where: {
-          id:req.params.id,
-        },
-      })
-        .then((data) => {
-          res.json({ success: true, data: data });
-        })
-    .catch((err) => res.json({ success: false, error: err }));
-  };
-// exports.create = (req, res) => {
-//   };
-// exports.create = (req, res) => {
-//   };
-// exports.create = (req, res) => {
-//     User.findOne({
-//         attributes: ['id'],
-//         include: [
-//             { model: AlpacaOrderColumn }
-//         ],
-//         where: { id: req.user.id }
-//     }).then((userColumnData) => {
-//         res.json({ success: true, data: userColumnData.alpacaOrderColumns })
-//     }).catch(next)
-//   };
-  
- 
+};
+
+exports.findAll = async (req, res) => {
+  try {
+    const data = await Incomeplan.find({ userId: req.user.id });
+    res.json({ success: true, data });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, error: err });
+  }
+};
+
+exports.update = async (req, res) => {
+  try {
+    const updatedData = await Incomeplan.updateOne(
+      { id: req.params.id },
+      req.body,
+    );
+    res.json({ success: true, data: updatedData });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, error: err });
+  }
+};
+
+exports.delete = async (req, res) => {
+  try {
+    const deletedData = await Incomeplan.deleteOne({ id: req.params.id });
+    res.json({ success: true, data: deletedData });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, error: err });
+  }
+};

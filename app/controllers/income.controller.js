@@ -1,55 +1,45 @@
-const Income = require('../models').Income
-exports.create = (req, res) => {
-  req.body.userId = req.user.id
-    Income.create(req.body)
-    .then((data) => {
-      res.json({ success: true, data: data });
-    })
-    .catch((err) => res.json({ success: false, error: err }));
-  };
-exports.findAll = (req, res) => {
-    Income.findAll({attributes: ['id','amount', 'category', 'description', 'date'],where: { userId: req.user.id }})
-    .then((data) => {
-      res.json({ success: true, data: data });
-    })
-    .catch((err) => res.json({ success: false, error: err }));
-  };
-exports.update = (req, res) => {
-    Income.update(req.body, {
-        where: {
-          id:req.params.id,
-        },
-      })
-        .then((data) => {
-          res.json({ success: true, data: data });
-        })
-    .catch((err) => res.json({ success: false, error: err }));
-  };
-exports.delete = (req, res) => {
-    Income.destroy({
-        where: {
-          id:req.params.id,
-        },
-      })
-        .then((data) => {
-          res.json({ success: true, data: data });
-        })
-    .catch((err) => res.json({ success: false, error: err }));
-  };
-// exports.create = (req, res) => {
-//   };
-// exports.create = (req, res) => {
-//   };
-// exports.create = (req, res) => {
-//     User.findOne({
-//         attributes: ['id'],
-//         include: [
-//             { model: AlpacaOrderColumn }
-//         ],
-//         where: { id: req.user.id }
-//     }).then((userColumnData) => {
-//         res.json({ success: true, data: userColumnData.alpacaOrderColumns })
-//     }).catch(next)
-//   };
-  
- 
+const Income = require('../models').Income;
+
+exports.create = async (req, res) => {
+  try {
+    req.body.userId = req.user.id;
+    const newData = await Income.create(req.body);
+    res.json({ success: true, data: newData });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, error: err });
+  }
+};
+
+exports.findAll = async (req, res) => {
+  try {
+    const data = await Income.find({ userId: req.user.id }, ['id', 'amount', 'category', 'description', 'date']);
+    res.json({ success: true, data });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, error: err });
+  }
+};
+
+exports.update = async (req, res) => {
+  try {
+    const updatedData = await Income.updateOne(
+      { id: req.params.id },
+      req.body,
+    );
+    res.json({ success: true, data: updatedData });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, error: err });
+  }
+};
+
+exports.delete = async (req, res) => {
+  try {
+    const deletedData = await Income.deleteOne({ id: req.params.id });
+    res.json({ success: true, data: deletedData });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, error: err });
+  }
+};

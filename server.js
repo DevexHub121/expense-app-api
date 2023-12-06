@@ -1,60 +1,19 @@
+const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
-const models = require('./app/models');
+const passport = require("passport");
+require("./app/models");
 const dbConfig = require("./app/config/db.config");
-var passport = require('passport')
-let authRouts = require("./app/routes/auth.routes")
-let userRouts = require("./app/routes/user.routes")
+const authRoutes = require("./app/routes/auth.routes");
+const userRoutes = require("./app/routes/user.routes");
 
 const app = express();
 
-models.sequelize.sync({}).then(() => {
-  console.log("table created-----------")
-});
-
-// app.use(cors());
-/* for Angular Client (withCredentials) */
-const allowedOrigins = [
-  // 'https://expense-app-99c18.web.app',
-  "http://localhost:4200"
-];
-app.use(
-  cors({
-    origin: "https://expense-app-99c18.web.app",
-    //  origin: "http://localhost:4200",
-    credentials: true,
-    optionsSuccessStatus: 200,
-  })
-);
-// app.use(cors({
-//     origin: allowedOrigins,
-//     optionsSuccessStatus: 200,
-//   })); 
-app.use(passport.initialize());
-require('./config/passport')(passport);
-// parse requests of content-type - application/json
-app.use(express.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
-
-app.use(
-  cookieSession({
-    name: "bezkoder-session",
-    keys: ["COOKIE_SECRET"], // should use as secret environment variable
-    httpOnly: true
-  })
-);
-
-const db = require("./app/models");
-const Role = db.role;
-
-// db.mongoose
-//   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-//   })
+// mongoose.connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// })
 //   .then(() => {
 //     console.log("Successfully connect to MongoDB.");
 //     initial();
@@ -64,31 +23,51 @@ const Role = db.role;
 //     process.exit();
 //   });
 
+app.use(cors({
+  // origin: "https://expense-app-99c18.web.app",
+  origin: "http://localhost:4200",
+  credentials: true,
+  optionsSuccessStatus: 200,
+}));
 
-// simple route
+app.use(passport.initialize());
+require("./config/passport")(passport);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  cookieSession({
+    name: "bezkoder-session",
+    keys: ["COOKIE_SECRET"],
+    httpOnly: true
+  })
+);
+
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
-app.use(function(req, res, next) {
+
+app.use(function (req, res, next) {
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, Content-Type, Accept"
   );
   next();
+});
 
-})
+app.use("/api/auth", authRoutes);
+app.use("/api/test", userRoutes);
 
-// require("./app/routes/auth.routes")(app);
-// require("./app/routes/user.routes")(app);
-app.use('/api/auth', authRouts);
-app.use('/api/test', userRouts);
-// set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
 function initial() {
+  const Role = models.Role;
+  // const User = mongoose.models.User || require("./app/models/user.model");
+
   Role.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
       new Role({

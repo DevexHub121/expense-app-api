@@ -1,85 +1,60 @@
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-// const Role = mongoose.model(
-//   "Role",
-//   new mongoose.Schema({
-//     name: String
-//   })
-// );
+const RoleSchema = new mongoose.Schema({
+  roleName: {
+    type: String,
+    required: true,
+  },
+  roleDescription: {
+    type: String,
+    default: null,
+  },
+  roleTags: {
+    type: String,
+    default: null,
+  },
+  isDefaultRegister: {
+    type: Boolean,
+    default: false,
+  },
+  isDefaultInvite: {
+    type: Boolean,
+    default: false,
+  },
+  isClientUser: {
+    type: Boolean,
+    default: false,
+  },
+  isOrgUser: {
+    type: Boolean,
+    default: false,
+  },
+  isOrgAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  createdBy: {
+    type: Number,
+    default: null,
+  },
+  updatedBy: {
+    type: Number,
+    default: null,
+  },
+  deletedAt: {
+    type: Date,
+    default: null,
+  },
+  client_assignment_permission: {
+    type: Boolean,
+    default: true,
+  },
+  lead_assignment_permission: {
+    type: Boolean,
+    default: true,
+  },
+}, { timestamps: true });
 
-// module.exports = Role;
+const Role = mongoose.model('Role', RoleSchema);
 
-
-'use strict';
-// const bcrypt = require('bcrypt');
-
-module.exports = (sequelize, DataTypes) => {
-    let Role = sequelize.define('role', {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-        },
-        roleName: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        roleDescription: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        roleTags: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        isDefaultRegister: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-            defaultValue: false,
-        },
-        isDefaultInvite: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-            defaultValue: false,
-        },
-        isClientUser: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-            defaultValue: false,
-        },
-        isOrgUser: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-            defaultValue: false,
-        },
-        isOrgAdmin: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-            defaultValue: false,
-        },
-        createdBy: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-        },
-        updatedBy: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-        },
-        deletedAt: {
-            type: DataTypes.DATE,
-            allowNull: true,
-        },
-        client_assignment_permission: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: true,
-        },
-        lead_assignment_permission: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: true,
-        }
-    }, {
-        tableName: 'role',
-        freezeTableName: true
-    });
-    return Role;
-};
+module.exports = Role;

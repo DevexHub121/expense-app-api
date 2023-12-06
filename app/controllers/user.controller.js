@@ -1,3 +1,6 @@
+const User = require('../models').User;
+const Role = require('../models').Role;
+
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
 };
@@ -13,19 +16,20 @@ exports.adminBoard = (req, res) => {
 exports.moderatorBoard = (req, res) => {
   res.status(200).send("Moderator Content.");
 };
-exports.role = (req, res) => {
-  User.findAll({
-    include: [
-      {
-        model: Role,
-        as: "roles",
-        attributes: ["id", "roleName", "roleTags"],
-      },
-    ],
-    where: { id: req.user.orgId },
-  })
-    .then((orgUsers) => {
-        res.json({success:true,data:orgUsers})
-    })
-  res.status(200).send("Moderator Content.");
+
+exports.role = async (req, res) => {
+  try {
+    const orgUsers = await User.find({
+      id: req.user.orgId,
+    }).populate({
+      path: "roles",
+      select: ["id", "roleName", "roleTags"],
+      model: Role,
+    });
+
+    res.json({ success: true, data: orgUsers });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, error: err });
+  }
 };

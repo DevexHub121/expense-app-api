@@ -1,27 +1,25 @@
-const db = require("../models");
-const ROLES = db.ROLES;
-const User = db.User;
+const User = require("../models/user.model");
+const ROLES = ["user", "admin", "moderator"];
 
 checkDuplicateUsernameOrEmail = (req, res, next) => {
   // Username
-  User.findOne({
-    where: { username: req.body.username }
-  })
+  User.findOne({ userName: req.body.username })
     .then((user) => {
       if (user) {
+        console.log('user----------------')
+        console.log('user----------------')
+        console.log(user)
         return res.status(400).send({ message: "Failed! Username is already in use!" });
       }
-  
+
       // Check if the email is already in use
-      return User.findOne({
-        where: { email: req.body.email }
-      });
+      return User.findOne({ email: req.body.email });
     })
     .then((userByEmail) => {
       if (userByEmail) {
         return res.status(400).send({ message: "Failed! Email is already in use!" });
       }
-  
+
       // If both username and email are unique, proceed to the next middleware
       next();
     })

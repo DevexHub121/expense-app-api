@@ -1,54 +1,87 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-let config = require('../../config/db-config');
-const Sequelize = require('sequelize');
+const config = require('../../config/db-config');
+const RoleSchema =require('./role.model')
+const UserSchema =require('./user.model')
+const ExpenseSchema =require('./expense.model')
+const IncomeSchema =require('./income.model')
+const ExpenseplanSchema =require('./expense_plan.model')
+const IncomeplanSchema =require('./income_plan.model')
+console.log('config--------')
+console.log('config--------')
+console.log('config--------')
+console.log(config)
 
-const db = {};
-let sequelize;
-    sequelize = new Sequelize(config.database, config.username, config.password, config);
-    sequelize
-    .authenticate()
-    .then(() => {
-      console.log("Connection has been established successfully.");
-    })
-    .catch((error) => {
-      console.error("Unable to connect to the database: ", error);
-    });
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+mongoose.connect(`${config.uri}`)
+  .then(() => {
+    console.log("Connection has been established successfully.");
+  })
+  .catch((error) => {
+    console.error("Unable to connect to the database: ", error);
+  });
 
+// const Schema = mongoose.Schema;
 
-db.mongoose = mongoose;
+// const RoleSchema = new Schema({
+//   roleName: String,
+//   // Add other fields as needed
+// });
 
-// db.user = require("./user.model");
-// db.role = require("./role.model");
+// const UserSchema = new Schema({
+//   email: String,
+//   userName: String,
+//   password: String,
+//   // Add other fields as needed
+// });
 
-db.ROLES = ["user", "admin", "moderator"];
-db.User = require('./user.model')(sequelize, Sequelize);
-db.Role = require('./role.model')(sequelize, Sequelize);
-db.User.hasMany(db.Role, { foreignKey: 'userId', sourceKey: 'id' });
-db.Expense = require('./expense.model')(sequelize, Sequelize);
-db.User.hasMany(db.Expense, { foreignKey: 'userId', sourceKey: 'id' });
-db.Income = require('./income.model')(sequelize, Sequelize);
-db.User.hasMany(db.Income, { foreignKey: 'userId', sourceKey: 'id' });
-db.Expenseplan = require('./expense_plan.model')(sequelize, Sequelize);
-db.User.hasMany(db.Expenseplan, { foreignKey: 'userId', sourceKey: 'id' });
-db.Incomeplan = require('./income_plan.model')(sequelize, Sequelize);
-db.User.hasMany(db.Incomeplan, { foreignKey: 'userId', sourceKey: 'id' });
+// const ExpenseSchema = new Schema({
+//   amount: String,
+//   category: String,
+//   date: Date,
+//   description: String,
+//   // Add other fields as needed
+// });
 
-module.exports = db;
+// const IncomeSchema = new Schema({
+//   amount: String,
+//   category: String,
+//   date: Date,
+//   description: String,
+//   // Add other fields as needed
+// });
 
+// const ExpenseplanSchema = new Schema({
+//   // Define your Expenseplan schema
+//   // Example:
+//   Gifts: Number,
+//   Food: Number,
+//   // Add other fields as needed
+// });
 
-// const mongoose = require('mongoose');
-// mongoose.Promise = global.Promise;
+// const IncomeplanSchema = new Schema({
+//   // Define your Incomeplan schema
+//   // Example:
+//   savings: Number,
+//   paycheck: Number,
+//   // Add other fields as needed
+// });
 
-// const db = {};
+// const Role = mongoose.model('Role', RoleSchema);
+// const User = mongoose.model('User', RoleSchema);
+// const Expense = mongoose.model('Expense', ExpenseSchema);
+// const Income = mongoose.model('Income', IncomeSchema);
+// const Expenseplan = mongoose.model('Expenseplan', ExpenseplanSchema);
+// const Incomeplan = mongoose.model('Incomeplan', IncomeplanSchema);
 
-// db.mongoose = mongoose;
-
-// db.user = require("./user.model");
-// db.role = require("./role.model");
-
-// db.ROLES = ["user", "admin", "moderator"];
+const db = {
+  mongoose: mongoose,
+  Role: RoleSchema,
+  User: UserSchema,
+  Expense: ExpenseSchema,
+  Income: IncomeSchema,
+  Expenseplan: ExpenseplanSchema,
+  Incomeplan: IncomeplanSchema,
+  ROLES: ["user", "admin", "moderator"],
+};
 
 module.exports = db;
