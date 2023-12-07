@@ -44,7 +44,7 @@
         "dest": "/server.js"
       },
       {
-        "src": "/api/test/deleteExpense/:id",
+        "src": "/api/test/deleteExpense/(?<id>[^/]*)",
         "dest": "/server.js"
       },
       {
@@ -56,11 +56,11 @@
         "dest": "/server.js"
       },
       {
-        "src": "/api/test/updateIncome/:id",
+        "src": "/api/test/updateIncome/(?<id>[^/]*)",
         "dest": "/server.js"
       },
       {
-        "src": "/api/test/deleteIncome/:id",
+        "src": "/api/test/deleteIncome/(?<id>[^/]*)",
         "dest": "/server.js"
       },
       {
