@@ -23,7 +23,7 @@ exports.findAll = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    const updatedData = await Income.updateOne(
+    const updatedData = await Income.findByIdAndUpdate(
       { _id: req.params.id },
       req.body,
     );

@@ -4,7 +4,7 @@ exports.create = async (req, res) => {
   try {
     const data = await Incomeplan.findOne({ userId: req.user.id });
     if (data) {
-      const updatedData = await Incomeplan.updateOne(
+      const updatedData = await Incomeplan.findByIdAndUpdate(
         { _id: data._id },
         req.body,
       );
@@ -32,7 +32,7 @@ exports.findAll = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    const updatedData = await Incomeplan.updateOne(
+    const updatedData = await Incomeplan.findByIdAndUpdate(
       { _id: req.params.id },
       req.body,
     );
