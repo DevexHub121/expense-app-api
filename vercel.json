@@ -40,7 +40,7 @@
         "dest": "/server.js"
       },
       {
-        "src": "/api/test/updateExpense/65717b65e8991c8acce42baf",
+        "src": "/api/test/updateExpense/(?<id>[^/]*)",
         "dest": "/server.js"
       },
       {
