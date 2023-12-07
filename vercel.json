@@ -12,11 +12,63 @@
         "dest": "/server.js"
       },
       {
-        "src": "/api/auth",
+        "src": "/api/test/all",
         "dest": "/server.js"
       },
       {
-        "src": "/api/test/all",
+        "src": "/api/auth/signup",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/auth/signin",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/auth/signout",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/test/createExpense",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/test/expense",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/test/updateExpense/:id",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/test/deleteExpense/:id",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/test/createIncome",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/test/income",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/test/updateIncome/:id",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/test/deleteIncome/:id",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/test/createExpensePlan",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/test/expensePlan",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/api/test/incomePlan",
         "dest": "/server.js"
       },
       {
