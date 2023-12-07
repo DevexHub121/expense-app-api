@@ -16,6 +16,10 @@
         "dest": "/server.js"
       },
       {
+        "src": "/api/test/user",
+        "dest": "/server.js"
+      },
+      {
         "src": "/api/auth/signup",
         "dest": "/server.js"
       },
