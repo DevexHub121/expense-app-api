@@ -45,7 +45,7 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    const deletedData = await Incomeplan.deleteOne({ _id: req.params.id });
+    const deletedData = await Incomeplan.findByIdAndDelete({ _id: req.params.id });
     res.json({ success: true, data: deletedData });
   } catch (err) {
     console.error(err);
