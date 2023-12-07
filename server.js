@@ -45,7 +45,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Expense application." });
+  res.json({ message: "Welcome to Expense Application." });
 });
 
 app.use(function (req, res, next) {
