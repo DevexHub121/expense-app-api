@@ -25,7 +25,7 @@ const app = express();
 
 app.use(cors({
   // origin: "https://expense-app-99c18.web.app",
-  // origin: "http://localhost:4200",
+  origin: "http://localhost:4200",
   credentials: true,
   optionsSuccessStatus: 200,
 }));
@@ -45,7 +45,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Expense ." });
+  res.json({ message: "Welcome to Expense App." });
 });
 
 app.use(function (req, res, next) {
