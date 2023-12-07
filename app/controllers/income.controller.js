@@ -24,7 +24,7 @@ exports.findAll = async (req, res) => {
 exports.update = async (req, res) => {
   try {
     const updatedData = await Income.updateOne(
-      { id: req.params.id },
+      { _id: req.params.id },
       req.body,
     );
     res.json({ success: true, data: updatedData });
@@ -36,7 +36,7 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    const deletedData = await Income.deleteOne({ id: req.params.id });
+    const deletedData = await Income.deleteOne({ _id: req.params.id });
     res.json({ success: true, data: deletedData });
   } catch (err) {
     console.error(err);

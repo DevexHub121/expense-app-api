@@ -20,7 +20,7 @@ exports.moderatorBoard = (req, res) => {
 exports.role = async (req, res) => {
   try {
     const orgUsers = await User.find({
-      id: req.user.orgId,
+      _id: req.user.id,
     }).populate({
       path: "roles",
       select: ["id", "roleName", "roleTags"],
