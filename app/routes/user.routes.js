@@ -65,7 +65,7 @@ const router = express.Router();
   router.get("/expensePlan",passport.authenticate('jwt', { session: false }), expensePlanController.findAll);
   router.get("/incomePlan",passport.authenticate('jwt', { session: false }), incomePlanController.findAll);
 
-  router.get("/user", [authJwt.verifyToken], controller.userBoard);
+  router.get("/user", controller.userBoard);
 
   router.get(
     "/mod",
