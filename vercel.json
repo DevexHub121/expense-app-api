@@ -68,6 +68,10 @@
         "dest": "/server.js"
       },
       {
+        "src": "/api/test/createIncomePlan",
+        "dest": "/server.js"
+      },
+      {
         "src": "/api/test/expensePlan",
         "dest": "/server.js"
       },
