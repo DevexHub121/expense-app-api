@@ -24,7 +24,7 @@ const app = express();
 //   });
 
 app.use(cors({
-  origin: "https://expense-app-99c18.web.app",
+  // origin: "https://expense-app-99c18.web.app",
   // origin: "http://localhost:4200",
   credentials: true,
   optionsSuccessStatus: 200,
