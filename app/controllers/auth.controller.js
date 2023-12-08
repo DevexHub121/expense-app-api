@@ -44,6 +44,7 @@ exports.signup = async (req, res) => {
       userName: req.body.username,
       email: req.body.email,
       password: hashedPassword,
+      country: req.body.country,
     });
     // const newRole = new Role({
     //   roleName: "user",
@@ -117,6 +118,7 @@ exports.signin = async (req, res) => {
       id: user._id,
       username: user.userName,
       email: user.email,
+      country: req.body.country,
       // roles: authorities,
     };
 
