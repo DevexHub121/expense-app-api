@@ -17,6 +17,16 @@ exports.moderatorBoard = (req, res) => {
   res.status(200).send("Moderator Content.");
 };
 
+exports.findAll = async (req, res) => {
+  try {
+    const data = await User.findById({ _id: req.user.id });
+    res.json({ success: true, data:data });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, error: err });
+  }
+};
+
 exports.role = async (req, res) => {
   try {
     const orgUsers = await User.find({

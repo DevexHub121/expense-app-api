@@ -45,30 +45,30 @@ exports.signup = async (req, res) => {
       email: req.body.email,
       password: hashedPassword,
     });
-    const newRole = new Role({
-      roleName: "user",
-      roleDescription: "User role with full access",
-      roleTags: "user",
-      isDefaultRegister: true,
-      isDefaultInvite: true,
-      isClientUser: false,
-      isOrgUser: false,
-      isOrgAdmin: true,
-      createdBy: 1,
-      updatedBy: null,
-      deletedAt: null,
-      client_assignment_permission: true,
-      lead_assignment_permission: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    });
-    newRole.save()
-  .then((result) => {
-    console.log("New role added:", result);
-  })
-  .catch((error) => {
-    console.error("Error adding role:", error);
-  })
+    // const newRole = new Role({
+    //   roleName: "user",
+    //   roleDescription: "User role with full access",
+    //   roleTags: "user",
+    //   isDefaultRegister: true,
+    //   isDefaultInvite: true,
+    //   isClientUser: false,
+    //   isOrgUser: false,
+    //   isOrgAdmin: true,
+    //   createdBy: 1,
+    //   updatedBy: null,
+    //   deletedAt: null,
+    //   client_assignment_permission: true,
+    //   lead_assignment_permission: true,
+    //   createdAt: new Date(),
+    //   updatedAt: new Date()
+    // });
+    // newRole.save()
+  // .then((result) => {
+  //   console.log("New role added:", result);
+  // })
+  // .catch((error) => {
+  //   console.error("Error adding role:", error);
+  // })
 
     // if (req.body.roles) {
     //   const roles = await Role.find({ roleName: { $in: req.body.roles } });

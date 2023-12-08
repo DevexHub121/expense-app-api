@@ -61,10 +61,14 @@ const UserSchema = new mongoose.Schema({
   updatedBy: {
     type: Number,
   },
+  country: {
+    type: String,
+  },
   expensePlan: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ExpensePlan' }],
   incomePlan: [{ type: mongoose.Schema.Types.ObjectId, ref: 'IncomePlan' }],
   expense: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Expense' }],
   income: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Income' }],
+  role: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Role' }],
 }, { timestamps: true });
 
 // UserSchema.methods.generateHash = function (password) {

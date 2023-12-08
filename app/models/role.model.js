@@ -53,6 +53,10 @@ const RoleSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // Reference to the Author model
+  },
 }, { timestamps: true });
 
 const Role = mongoose.model('Role', RoleSchema);

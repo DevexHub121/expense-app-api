@@ -9,7 +9,7 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
         console.log('user----------------')
         console.log('user----------------')
         console.log(user)
-        return res.status(400).send({ message: "Failed! Username is already in use!" });
+        return res.status(200).send({ message: "Failed! Username is already in use!" });
       }
 
       // Check if the email is already in use
@@ -17,7 +17,7 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
     })
     .then((userByEmail) => {
       if (userByEmail) {
-        return res.status(400).send({ message: "Failed! Email is already in use!" });
+        return res.status(200).send({ message: "Failed! Email is already in use!" });
       }
 
       // If both username and email are unique, proceed to the next middleware
